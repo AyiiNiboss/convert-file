@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import * as pdfjsLib from 'pdfjs-dist';
+import { useEffect, useState } from "react";
+import * as pdfjsLib from "pdfjs-dist";
+import { Spinner } from "@chakra-ui/react";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.js`;
 
@@ -13,8 +14,8 @@ const PdfThumbnail = ({ file }) => {
       const page = await pdf.getPage(1);
       const viewport = page.getViewport({ scale: 1.5 });
 
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
       canvas.height = viewport.height;
       canvas.width = viewport.width;
 
@@ -33,9 +34,13 @@ const PdfThumbnail = ({ file }) => {
   return (
     <div className="pdf-thumbnail">
       {thumbnail ? (
-        <img src={thumbnail} alt="PDF Thumbnail" style={{ width: '150px', height: 'auto', objectFit: 'cover' }} />
+        <img
+          src={thumbnail}
+          alt="PDF Thumbnail"
+          style={{ width: "150px", height: "auto", objectFit: "cover" }}
+        />
       ) : (
-        <p>Loading thumbnail...</p>
+        <Spinner color="red.500" />
       )}
     </div>
   );
